@@ -1,9 +1,9 @@
 export let CONFIG = {
-    RootApi: '',
+    RootApi: 'http://localhost:3000',
 
     ApiUrls: {
         User: {
-            
+            getAll: 'users/getall',
         }
     }
 }

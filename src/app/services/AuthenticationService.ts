@@ -22,7 +22,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        const result = this.http.post<any>(`${CONFIG.ApiUrls}/users/authenticata`, {username, password})
+        const result = this.http.post<any>(`${CONFIG.ApiUrls}/users/authenticate`, {username, password})
         .pipe(map(user => {
 
             if (user && user.token) {

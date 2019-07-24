@@ -7,8 +7,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { fakeBackendProvider } from './helpers/fake-backend';
-import { ReactiveFormsModule } from '@angular/forms';
 import { routing } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -19,8 +20,9 @@ import { routing } from './app-routing.module';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-        HttpClientModule,
-        routing
+    HttpClientModule,
+    routing,
+    FormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

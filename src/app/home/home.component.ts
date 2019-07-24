@@ -14,8 +14,13 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    debugger;
     this.userService.getAll().subscribe(result => {
-      this.users = result;
+      if (result) {
+        this.users = result;
+      } else {
+        alert('result null!!');
+      }
     })
   }
 }

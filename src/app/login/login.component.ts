@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
 import { AuthenticationService } from '../services/AuthenticationService';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -25,8 +24,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuider.group({
-      userName: ['', Validators.required],
-      password: ['', Validators.required]
+      userName: ['', Validators.required && Validators.minLength(2)],
+      password: ['', Validators.required && Validators.minLength(4)]
     });
 
     this.authenticationService.logout();
@@ -38,9 +37,9 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit(form: NgForm) {
+  onSubmit() {
     debugger;
-    if (form.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
 

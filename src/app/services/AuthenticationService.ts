@@ -18,10 +18,12 @@ export class AuthenticationService {
     }
 
     public get currentUserValue(): User {
+        debugger
         return this.currentUserSubject.value;
     }
 
     login(username: string, password: string) {
+        debugger
         const result = this.http.post<any>(`${CONFIG.ApiUrls}/users/authenticate`, {username, password})
         .pipe(map(user => {
 

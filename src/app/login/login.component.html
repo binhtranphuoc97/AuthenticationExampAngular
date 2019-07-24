@@ -1,15 +1,17 @@
 <h2>LOGIN</h2>
-<form #formLogin="ngForm" (ngSubmit)="onSubmit(formLogin)">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="userName">User Name</label>
-        <input type="text" name="userName" class="form-control" formControlName="userName" required [(ngModel)]="f.userName")] #name='ngModel'>
-        <div class="alert alert-danger" *ngIf="userName.touched && userName.errors.required">Username is required!</div>
+        <input type="text" name="userName" class="form-control" formControlName="userName" required minlength="2" [(ngModel)]="userName">
+        <!-- <div class="alert alert-danger" *ngIf="f.userName.touched && f.userName.errors.required">Username is required!</div> -->
+        <div class="alert alert-danger" *ngIf="f.userName.invalid && (f.userName.dirty || f.userName.touched)">Username is required!</div>
     </div>
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" class="form-control" formControlName="password" required minlength="2" [(ngModel)]="f.password")] #name='ngModel'>
-        <div class="alert alert-danger" *ngIf="password.touched && password.errors.required">Password is required</div>
+        <input type="password" name="password" class="form-control" formControlName="password" required minlength="4" [(ngModel)]="password">
+        <!-- <div class="alert alert-danger" *ngIf="f.password.touched && f.password.errors.required">Password is required</div> -->
+        <div class="alert alert-danger" *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">Username is required!</div>
     </div>
 
     <div class="form-group">

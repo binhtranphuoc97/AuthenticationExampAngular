@@ -8,7 +8,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        const users: User[] = [{ id: 1, username: 'Admin', password: '123456', firstName: 'Binh', lastName: 'tran'}];
+        const users: User[] = [{ id: 1, userName: 'Admin', password: '123456', firstName: 'Binh', lastName: 'tran'}];
 
         const authHeader = req.headers.get('Authorization');
         const isLoggedIn = authHeader && authHeader.startsWith('Bearer fake-jwt-token');
@@ -16,11 +16,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return of(null).pipe(mergeMap(() => {
             
             if (req.url.endsWith('/users/authenticate') && req.method === 'POST') {
-                const user = users.find(x => x.username === req.body.username && x.password === req.body.password);
+                const user = users.find(x => x.userName === req.body.username && x.password === req.body.password);
                 if (!user) return error('Username or password is incorrect');
                 return ok({
                     id: user.id,
-                    username: user.username,
+                    username: user.userName,
                     firstName: user.firstName,
                     lastName: user.lastName,
                     token: `fake-jwt-token`
@@ -28,6 +28,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             if(req.url.endsWith('/users') && req.method === 'GET') {
+                debugger
                 if (!isLoggedIn) return unauthorised();
                 return ok(users);
             }
@@ -45,6 +46,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function unauthorised() {
+            debugger
             return throwError({ status: 401, error: { message: 'Unauthorised' } });
         }
 
